@@ -15,4 +15,5 @@ public class UserResponse {
     private Long id;
     private String fullName;
     private RoleUser role;
+    private String email;
 }

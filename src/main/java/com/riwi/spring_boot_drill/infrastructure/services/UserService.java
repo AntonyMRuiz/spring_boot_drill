@@ -18,8 +18,8 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class UserService implements IUserService{
-    
+public class UserService implements IUserService {
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -60,8 +60,33 @@ public class UserService implements IUserService{
 
     @Override
     public UserResponse update(Long id, UserRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        
+        UserEntity userDb = this.serviceHelper.find(id, userRepository, "user");
+
+        if (userDb.getRole() != RoleUser.ADMIN) {
+            if (request.getRole() != null) {
+                throw new BadRoleException("Changing the role is not allowed");
+            }
+
+            request.setRole(userDb.getRole().name());
+        } else {
+            try {
+                if (request.getRole() != null) {
+                    RoleUser.valueOf(request.getRole());
+                } else {
+                    request.setRole(userDb.getRole().name());
+                }
+                
+            } catch (Exception e) {
+                throw new BadRoleException("Role is invalid");
+            }
+        }  
+
+        UserEntity user = this.userMapper.requestToEntity(request);
+        user.setId(id);
+            
+        return this.userMapper.entityToResponse(this.userRepository.save(user));
+
     }
 
     @Override
@@ -70,5 +95,4 @@ public class UserService implements IUserService{
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
-    
 }

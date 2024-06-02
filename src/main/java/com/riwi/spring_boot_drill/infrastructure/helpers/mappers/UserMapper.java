@@ -28,6 +28,7 @@ public class UserMapper implements IUserMapper{
                 .id(entity.getId())
                 .fullName(entity.getFullName())
                 .role(entity.getRole())
+                .email(entity.getEmail())
                 .build();
     }
     
