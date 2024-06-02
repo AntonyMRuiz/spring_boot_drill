@@ -1,9 +1,7 @@
 package com.riwi.spring_boot_drill.api.dtos.request;
 
-import com.riwi.spring_boot_drill.utils.enums.RoleUser;
-
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,11 +18,11 @@ public class UserRequest {
     @NotBlank(message = "Password is required")
     private String password;
 
-    @NotBlank(message = "Username is required")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email is invalid")
     private String email;
 
     private String fullName;
 
-    @NotNull(message = "Role is required")
-    private RoleUser role;
+    private String role;
 }

@@ -1,4 +1,4 @@
-package com.riwi.spring_boot_drill.infrastructure.helpers.mappers;
+package com.riwi.spring_boot_drill.infrastructure.helpers.abstract_mappers;
 
 import com.riwi.spring_boot_drill.api.dtos.request.LessonRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.LessonResponse;

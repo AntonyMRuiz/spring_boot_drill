@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.riwi.spring_boot_drill.domain.entities.Assignment;
 
 @Repository
-public interface AssigmentRepository extends JpaRepository<Assignment, Long>{
+public interface AssignmentRepository extends JpaRepository<Assignment, Long>{
     
 }

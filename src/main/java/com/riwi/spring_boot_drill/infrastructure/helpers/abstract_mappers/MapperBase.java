@@ -1,4 +1,4 @@
-package com.riwi.spring_boot_drill.infrastructure.helpers.mappers;
+package com.riwi.spring_boot_drill.infrastructure.helpers.abstract_mappers;
 
 public interface MapperBase <RequestDTO, Entity ,ResponseDTO>{
     
