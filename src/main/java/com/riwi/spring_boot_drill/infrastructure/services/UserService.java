@@ -60,33 +60,31 @@ public class UserService implements IUserService {
 
     @Override
     public UserResponse update(Long id, UserRequest request) {
-        
-        UserEntity userDb = this.serviceHelper.find(id, userRepository, "user");
 
-        if (userDb.getRole() != RoleUser.ADMIN) {
-            if (request.getRole() != null) {
-                throw new BadRoleException("Changing the role is not allowed");
-            }
+        UserEntity userData = this.serviceHelper.find(id, userRepository, "user");
 
-            request.setRole(userDb.getRole().name());
-        } else {
+        if (userData.getRole() == RoleUser.ADMIN) {
             try {
                 if (request.getRole() != null) {
                     RoleUser.valueOf(request.getRole());
-                } else {
-                    request.setRole(userDb.getRole().name());
                 }
-                
             } catch (Exception e) {
                 throw new BadRoleException("Role is invalid");
             }
-        }  
+        } else {
+            if (request.getRole() != null) {
+                throw new BadRoleException("Changing the role is not allowed");
+            }
+        }
+
+        if (request.getRole() == null) {
+            request.setRole(userData.getRole().name());
+        }
 
         UserEntity user = this.userMapper.requestToEntity(request);
         user.setId(id);
-            
-        return this.userMapper.entityToResponse(this.userRepository.save(user));
 
+        return this.userMapper.entityToResponse(this.userRepository.save(user));
     }
 
     @Override

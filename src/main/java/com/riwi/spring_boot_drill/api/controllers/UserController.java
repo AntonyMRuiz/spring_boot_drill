@@ -48,11 +48,11 @@ public class UserController
         return ResponseEntity.ok(this.userService.getAll(page-1, size));
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{userId}")
     public ResponseEntity<UserResponse> update(
             @Validated @RequestBody UserRequest request,
-            @PathVariable Long id) {
-        return ResponseEntity.ok(this.userService.update(id, request));
+            @PathVariable Long userId) {
+        return ResponseEntity.ok(this.userService.update(userId, request));
     }
 
     @DeleteMapping(path = "/{id}")
