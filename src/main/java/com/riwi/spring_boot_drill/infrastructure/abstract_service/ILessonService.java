@@ -1,0 +1,9 @@
+package com.riwi.spring_boot_drill.infrastructure.abstract_service;
+
+import com.riwi.spring_boot_drill.api.dtos.request.LessonRequest;
+import com.riwi.spring_boot_drill.api.dtos.response.LessonResponse;
+
+public interface ILessonService
+        extends ServiceBase<LessonRequest, LessonResponse, Long> {
+
+}
