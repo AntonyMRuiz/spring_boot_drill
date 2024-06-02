@@ -1,4 +1,4 @@
-package com.riwi.spring_boot_drill.infrastructure.abstract_service;
+package com.riwi.spring_boot_drill.infrastructure.abstract_services;
 
 import com.riwi.spring_boot_drill.api.dtos.request.LessonRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.LessonResponse;
