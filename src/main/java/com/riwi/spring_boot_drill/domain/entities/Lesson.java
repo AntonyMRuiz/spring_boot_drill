@@ -1,5 +1,6 @@
 package com.riwi.spring_boot_drill.domain.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -43,5 +44,6 @@ public class Lesson {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Assignment> assignments;
+    @Builder.Default
+    private List<Assignment> assignments = new ArrayList<>();
 }

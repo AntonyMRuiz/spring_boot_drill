@@ -1,6 +1,7 @@
 package com.riwi.spring_boot_drill.domain.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -47,5 +48,6 @@ public class Assignment {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Submission> submissions;
+    @Builder.Default
+    private List<Submission> submissions = new ArrayList<>();
 }

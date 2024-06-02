@@ -1,5 +1,6 @@
 package com.riwi.spring_boot_drill.domain.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -43,7 +44,8 @@ public class Course {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Enrollment> enrollments;
+    @Builder.Default
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     @OneToMany(
         mappedBy = "courseId",
@@ -51,7 +53,8 @@ public class Course {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Lesson> lessons;
+    @Builder.Default
+    private List<Lesson> lessons = new ArrayList<>();
 
     @OneToMany(
         mappedBy = "courseId",
@@ -59,5 +62,6 @@ public class Course {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Message> messages;
+    @Builder.Default
+    private List<Message> messages = new ArrayList<>();
 }
