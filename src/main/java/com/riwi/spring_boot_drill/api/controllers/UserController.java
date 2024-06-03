@@ -14,15 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.riwi.spring_boot_drill.api.dtos.errors.ErrorsResponse;
 import com.riwi.spring_boot_drill.api.dtos.request.UserRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.UserResponse;
 import com.riwi.spring_boot_drill.infrastructure.abstract_services.IUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping(path = "/users")
 @AllArgsConstructor
+@Tag(name = "users")
 public class UserController
         implements ControllerBase<UserRequest, UserResponse, Long> {
 
@@ -30,15 +37,27 @@ public class UserController
     private final IUserService userService;
 
     @PostMapping
+    @Operation(
+        summary = "Create user",
+        description = "Create user"
+    )
     public ResponseEntity<UserResponse> create(
            @Validated @RequestBody UserRequest request) {
         return ResponseEntity.ok(this.userService.create(request));
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{userId}")
+    @ApiResponse(
+        responseCode = "404",
+        description = "NOT FOUND",
+        content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(
+                        implementation = ErrorsResponse.class)
+                        ))
     public ResponseEntity<UserResponse> get(
-           @PathVariable Long id) {
-        return ResponseEntity.ok(this.userService.get(id));
+           @PathVariable Long userId) {
+        return ResponseEntity.ok(this.userService.get(userId));
     }
 
     @GetMapping
@@ -55,10 +74,10 @@ public class UserController
         return ResponseEntity.ok(this.userService.update(userId, request));
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{userId}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id) {
-        this.userService.delete(id);
+            @PathVariable Long userId) {
+        this.userService.delete(userId);
         return ResponseEntity.noContent().build();
     }
 
