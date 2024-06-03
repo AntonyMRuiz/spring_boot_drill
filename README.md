@@ -23,4 +23,8 @@ Diagram:
 ![Diagram](https://github.com/AntonyMRuiz/spring_boot_drill/assets/147773928/dab5771b-7672-49be-912e-d40fc5d1d577)
 
 
+Arquitecture:
+
+![image](https://github.com/AntonyMRuiz/spring_boot_drill/assets/147773928/d0043244-28dc-47a6-8e88-d97d1cf19276)
+
 
