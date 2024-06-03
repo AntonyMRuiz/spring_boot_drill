@@ -36,45 +36,88 @@ public class UserController
     @Autowired
     private final IUserService userService;
 
+
     @PostMapping
     @Operation(
-        summary = "Create user",
-        description = "Create user"
+        summary = "Register a user",
+        description = "To create a user, you must send: “username”, “password”, “email”, “role” and optionally “fullName”."
     )
+    @ApiResponse(
+        responseCode = "400",
+        description = "BAD REQUEST",
+        content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorsResponse.class)))
     public ResponseEntity<UserResponse> create(
            @Validated @RequestBody UserRequest request) {
         return ResponseEntity.ok(this.userService.create(request));
     }
 
+
     @GetMapping(path = "/{userId}")
+    @Operation(
+        summary = "Find a user by id",
+        description = "To search for a user, the id must be passed and it must be of type Long."
+    )
     @ApiResponse(
         responseCode = "404",
         description = "NOT FOUND",
         content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(
-                        implementation = ErrorsResponse.class)
-                        ))
+                schema = @Schema(implementation = ErrorsResponse.class)))
     public ResponseEntity<UserResponse> get(
            @PathVariable Long userId) {
         return ResponseEntity.ok(this.userService.get(userId));
     }
 
+
     @GetMapping
+    @Operation(
+        summary = "Search all users",
+        description = "It will bring all saved users but paginated, by default it will be page: 1 and size:10, but you can modify it."
+    )
     public ResponseEntity<Page<UserResponse>> getAll(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(this.userService.getAll(page-1, size));
     }
 
+
     @PutMapping(path = "/{userId}")
+    @Operation(
+        summary = "Update a user",
+        description = "To update for a user, the id must be passed and it must be of type Long and you must send: “username”, “password”, “email”, “role” and optionally “fullName”."
+    )
+    @ApiResponse(
+        responseCode = "404",
+        description = "NOT FOUND",
+        content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorsResponse.class)))
+    @ApiResponse(
+        responseCode = "400",
+        description = "BAD REQUEST",
+        content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorsResponse.class)))
     public ResponseEntity<UserResponse> update(
             @Validated @RequestBody UserRequest request,
             @PathVariable Long userId) {
         return ResponseEntity.ok(this.userService.update(userId, request));
     }
 
+
     @DeleteMapping(path = "/{userId}")
+    @Operation(
+        summary = "Delete a user",
+        description = "To delete for a user, the id must be passed and it must be of type Long."
+    )
+    @ApiResponse(
+        responseCode = "404",
+        description = "NOT FOUND",
+        content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorsResponse.class)))
     public ResponseEntity<Void> delete(
             @PathVariable Long userId) {
         this.userService.delete(userId);
