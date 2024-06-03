@@ -2,6 +2,7 @@ package com.riwi.spring_boot_drill.infrastructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.riwi.spring_boot_drill.api.dtos.request.UserRequest;
@@ -54,8 +55,11 @@ public class UserService implements IUserService {
 
     @Override
     public Page<UserResponse> getAll(int page, int size) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        if (page < 0) page = 0;
+        if (size < 1) size = 10;
+
+        return this.userRepository.findAll(PageRequest.of(page, size))
+                .map((entity) -> this.userMapper.entityToResponse(entity));
     }
 
     @Override
@@ -89,8 +93,8 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        UserEntity user = this.serviceHelper.find(id, userRepository, "user");
+        this.userRepository.delete(user);
     }
 
 }
