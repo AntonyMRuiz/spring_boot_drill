@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping(path = "/users")
 @AllArgsConstructor
-@Tag(name = "users")
+@Tag(name = "Users")
 public class UserController
         implements ControllerBase<UserRequest, UserResponse, Long> {
 
