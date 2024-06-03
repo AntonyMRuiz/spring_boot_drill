@@ -18,3 +18,9 @@ DataBase name:
 ![image](https://github.com/AntonyMRuiz/spring_boot_drill/assets/147773928/91d9b65b-1757-4703-88ee-70a8d83359a2)
 
 
+Diagram:
+
+![Diagram](https://github.com/AntonyMRuiz/spring_boot_drill/assets/147773928/dab5771b-7672-49be-912e-d40fc5d1d577)
+
+
+
