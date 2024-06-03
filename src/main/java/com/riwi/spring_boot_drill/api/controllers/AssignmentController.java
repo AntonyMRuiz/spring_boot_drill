@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Tag(name = "Assignments")
 public class AssignmentController 
-        implements ControllerBase<AssignmentRequest, AssignmentResponse, Long> {
+        implements ControllerBase<AssignmentRequest, AssignmentResponse , Long> {
     
     @Autowired
     private final IAssignmentService assignmentService;

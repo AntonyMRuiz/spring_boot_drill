@@ -10,9 +10,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.riwi.spring_boot_drill.api.dtos.errors.ErrorSimpleResponse;
 import com.riwi.spring_boot_drill.api.dtos.errors.ErrorsResponse;
 import com.riwi.spring_boot_drill.utils.exceptions.BadIdException;
 import com.riwi.spring_boot_drill.utils.exceptions.BadRoleException;
+import com.riwi.spring_boot_drill.utils.exceptions.NotAuthorizedException;
 
 @RestControllerAdvice
 public class ErrorsController {
@@ -66,6 +68,19 @@ public class ErrorsController {
                 .code(HttpStatus.BAD_REQUEST.value())
                 .status(HttpStatus.BAD_REQUEST.name())
                 .errors(errors)
+                .build();
+    }
+
+    @ExceptionHandler(NotAuthorizedException.class)
+    public ErrorSimpleResponse handlerAuthorizedError(NotAuthorizedException exception) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        errorResponse.put("Error", exception.getMessage());
+
+        return ErrorSimpleResponse.builder()
+                .code(HttpStatus.FORBIDDEN.value())
+                .status(HttpStatus.FORBIDDEN.name())
+                .error(errorResponse)
                 .build();
     }
 }
