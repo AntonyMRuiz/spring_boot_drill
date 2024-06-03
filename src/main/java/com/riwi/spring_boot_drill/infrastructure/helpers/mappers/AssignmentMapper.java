@@ -3,7 +3,7 @@ package com.riwi.spring_boot_drill.infrastructure.helpers.mappers;
 import org.springframework.stereotype.Component;
 
 import com.riwi.spring_boot_drill.api.dtos.request.AssignmentRequest;
-import com.riwi.spring_boot_drill.api.dtos.response.AssignmetResponse;
+import com.riwi.spring_boot_drill.api.dtos.response.AssignmentResponse;
 import com.riwi.spring_boot_drill.domain.entities.Assignment;
 import com.riwi.spring_boot_drill.infrastructure.helpers.abstract_mappers.IAssignmentMapper;
 
@@ -20,8 +20,8 @@ public class AssignmentMapper implements IAssignmentMapper{
     }
 
     @Override
-    public AssignmetResponse entityToResponse(Assignment entity) {
-        return AssignmetResponse.builder()
+    public AssignmentResponse entityToResponse(Assignment entity) {
+        return AssignmentResponse.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .description(entity.getDescription())

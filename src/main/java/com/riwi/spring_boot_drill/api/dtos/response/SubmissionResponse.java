@@ -18,5 +18,5 @@ public class SubmissionResponse {
     private LocalDateTime date;
     private BigDecimal grade;
     private UserResponse userId;
-    private AssignmetResponse assignmentId;
+    private AssignmentResponse assignmentId;
 }

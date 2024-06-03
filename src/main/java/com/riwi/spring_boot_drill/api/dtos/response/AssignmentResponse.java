@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AssignmetResponse {
+public class AssignmentResponse {
     private Long id;
     private String title;
     private String description;
