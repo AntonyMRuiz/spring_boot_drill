@@ -18,6 +18,7 @@ import com.riwi.spring_boot_drill.api.dtos.errors.ErrorsResponse;
 import com.riwi.spring_boot_drill.api.dtos.request.CourseRequest;
 import com.riwi.spring_boot_drill.api.dtos.request.update.CourseUpdateRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.CourseReponse;
+import com.riwi.spring_boot_drill.api.dtos.response.get_all.LessonsByCourseResponse;
 import com.riwi.spring_boot_drill.infrastructure.abstract_services.ICourseService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -64,6 +65,14 @@ public class CourseController
         return ResponseEntity.ok(this.courseService.getAll(page-1, size));
     }
 
+    @GetMapping(path = "/{courseId}/lessons")
+    public ResponseEntity<LessonsByCourseResponse> getLessons(
+        @RequestParam(defaultValue = "1") int page, 
+        @RequestParam(defaultValue = "10") int size,
+        @PathVariable Long courseId) {
+        return ResponseEntity.ok(this.courseService.getLessons(page-1, size, courseId));
+    }
+
     @PutMapping(path = "/{courseId}")
     public ResponseEntity<CourseReponse> update(
         @Validated @RequestBody CourseRequest request, 
@@ -71,7 +80,7 @@ public class CourseController
         return ResponseEntity.ok(this.courseService.update(courseId, request));
     }
 
-    @PutMapping(path = "/info/{courseId}")
+    @PutMapping(path = "/{courseId}/info")
     public ResponseEntity<CourseReponse> updateInfo(
         @Validated @RequestBody CourseUpdateRequest request, 
         @PathVariable Long courseId) {

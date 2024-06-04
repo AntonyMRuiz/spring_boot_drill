@@ -57,7 +57,7 @@ public class LessonController
         return ResponseEntity.ok(this.lessonService.update(lessonId, request));
     }
 
-    @PutMapping(path = "/info/{lessonId}")
+    @PutMapping(path = "/{lessonId}/info")
     public ResponseEntity<LessonResponse> updateInfo(
         @Validated @RequestBody LessonUpdateRequest request, 
         @PathVariable Long lessonId) {
@@ -65,8 +65,10 @@ public class LessonController
     }
 
     @DeleteMapping(path = "/{lessonId}")
-    public ResponseEntity<Void> delete(Long lessonId) {
+    public ResponseEntity<Void> delete(
+        @PathVariable Long lessonId) {
         this.lessonService.delete(lessonId);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -7,5 +7,5 @@ import com.riwi.spring_boot_drill.api.dtos.response.LessonResponse;
 public interface ILessonService
         extends ServiceBase<LessonRequest, LessonResponse, Long> {
 
-        public LessonResponse updateInfo(Long id,LessonUpdateRequest request);
+        LessonResponse updateInfo(Long id, LessonUpdateRequest request);
 }

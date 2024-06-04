@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.riwi.spring_boot_drill.api.dtos.request.CourseRequest;
 import com.riwi.spring_boot_drill.api.dtos.request.update.CourseUpdateRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.CourseReponse;
+import com.riwi.spring_boot_drill.api.dtos.response.get_all.LessonsByCourseResponse;
 import com.riwi.spring_boot_drill.domain.entities.Course;
 import com.riwi.spring_boot_drill.domain.repositories.CourseRepository;
 import com.riwi.spring_boot_drill.domain.repositories.UserRepository;
@@ -84,5 +85,11 @@ public class CourseService implements
         course.setInstructorId(courseData.getInstructorId());
         
         return this.courseMapper.entityToResponse(this.courseRepository.save(course));
+    }
+
+    @Override
+    public LessonsByCourseResponse getLessons(int page, int size, Long id) {
+        this.serviceHelper.find(id, courseRepository, "course");
+        throw new UnsupportedOperationException("Unimplemented method 'getLessons'");
     }
 }

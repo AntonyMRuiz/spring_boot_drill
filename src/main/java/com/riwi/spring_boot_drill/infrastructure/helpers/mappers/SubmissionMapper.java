@@ -36,6 +36,8 @@ public class SubmissionMapper implements ISubmissionMapper {
 
     @Override
     public Submission requestToEntity(SubmissionRequest request) {
+
+        
         return Submission.builder()
                 .content(request.getContent())
                 .userId(this.helper.find(request.getUserId(), userRepository, "user"))

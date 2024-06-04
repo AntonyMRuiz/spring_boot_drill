@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.riwi.spring_boot_drill.api.dtos.errors.ErrorSimpleResponse;
 import com.riwi.spring_boot_drill.api.dtos.errors.ErrorsResponse;
 import com.riwi.spring_boot_drill.utils.exceptions.BadIdException;
+import com.riwi.spring_boot_drill.utils.exceptions.BadRequestException;
 import com.riwi.spring_boot_drill.utils.exceptions.BadRoleException;
 import com.riwi.spring_boot_drill.utils.exceptions.NotAuthorizedException;
 
@@ -57,17 +58,28 @@ public class ErrorsController {
     }
 
     @ExceptionHandler(BadRoleException.class)
-    public ErrorsResponse handlerRoleError(BadRoleException exception) {
-        List<Map<String, String>> errors = new ArrayList<>();
+    public ErrorSimpleResponse handlerRoleError(BadRoleException exception) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        errorResponse.put("Error", "Role is "+exception.getMessage());
+        
+        return ErrorSimpleResponse.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .error(errorResponse)
+                .build();
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ErrorSimpleResponse handlerRequestError(BadRequestException exception) {
         Map<String, String> errorResponse = new HashMap<>();
 
         errorResponse.put("Error", exception.getMessage());
-        errors.add(errorResponse);
-
-        return ErrorsResponse.builder()
+        
+        return ErrorSimpleResponse.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .status(HttpStatus.BAD_REQUEST.name())
-                .errors(errors)
+                .error(errorResponse)
                 .build();
     }
 

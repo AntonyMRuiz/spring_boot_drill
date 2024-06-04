@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.spring_boot_drill.api.dtos.request.SubmissionRequest;
 import com.riwi.spring_boot_drill.api.dtos.response.SubmissionResponse;
+import com.riwi.spring_boot_drill.domain.entities.Submission;
 import com.riwi.spring_boot_drill.domain.repositories.SubmissionRepository;
 import com.riwi.spring_boot_drill.infrastructure.abstract_services.ISubmissionService;
 import com.riwi.spring_boot_drill.infrastructure.helpers.ServiceHelper;
@@ -28,8 +29,8 @@ public class SubmissionService implements ISubmissionService{
 
     @Override
     public SubmissionResponse create(SubmissionRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        Submission submission = this.submissionMapper.requestToEntity(request);
+        return this.submissionMapper.entityToResponse(this.submissionRepository.save(submission));
     }
 
     @Override

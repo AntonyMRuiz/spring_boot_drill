@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.riwi.spring_boot_drill.domain.entities.UserEntity;
 
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    
+    UserEntity findByEmail(String email);
+    UserEntity findByUsername(String username);
 }

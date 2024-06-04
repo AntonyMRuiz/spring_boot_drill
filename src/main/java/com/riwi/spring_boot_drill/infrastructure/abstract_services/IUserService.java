@@ -5,5 +5,5 @@ import com.riwi.spring_boot_drill.api.dtos.response.UserResponse;
 
 public interface IUserService
         extends ServiceBase<UserRequest, UserResponse, Long> {
-
+        
 }

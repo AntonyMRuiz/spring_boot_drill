@@ -34,13 +34,13 @@ public class UserService implements IUserService {
     public UserResponse create(UserRequest request) {
 
         if (request.getRole() == null) {
-            throw new BadRoleException("Role is required");
+            throw new BadRoleException("REQUIRED");
         }
 
         try {
             RoleUser.valueOf(request.getRole());
         } catch (Exception e) {
-            throw new BadRoleException("Role is invalid");
+            throw new BadRoleException("INVALID");
         }
 
         UserEntity user = this.userMapper.requestToEntity(request);
@@ -55,8 +55,10 @@ public class UserService implements IUserService {
 
     @Override
     public Page<UserResponse> getAll(int page, int size) {
-        if (page < 0) page = 0;
-        if (size < 1) size = 10;
+        if (page < 0)
+            page = 0;
+        if (size < 1)
+            size = 10;
 
         return this.userRepository.findAll(PageRequest.of(page, size))
                 .map((entity) -> this.userMapper.entityToResponse(entity));
@@ -73,11 +75,11 @@ public class UserService implements IUserService {
                     RoleUser.valueOf(request.getRole());
                 }
             } catch (Exception e) {
-                throw new BadRoleException("Role is invalid");
+                throw new BadRoleException("INVALID");
             }
         } else {
             if (request.getRole() != null) {
-                throw new BadRoleException("Changing the role is not allowed");
+                throw new BadRoleException("NOT ALLOWED");
             }
         }
 
